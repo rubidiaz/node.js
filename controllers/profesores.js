@@ -19,17 +19,17 @@ let controller = {
         });
         
     }, 
-    profesores: function(req, res){
+    profesor: function(req, res){
         
        let n_lista = req.params.n_lista; 
           
-        profesores.findOne({n_cuenta: n_lista}).exec( (err, profesores) => {
+        profesores.findOne({n_cuenta: n_lista}).exec( (err, profesor) => {
             if(err) return res.status(500).json({status: 500,mensaje: err,});
-            if(!profesores) return res.status(200).json({status: 200,mensaje: "No se encontró el profesor"});
+            if(!profesor) return res.status(200).json({status: 200,mensaje: "No se encontró al profesor"});
             
             return res.status(200).json({
                 status: 200,
-                data: profesores
+                data: profesor
             });
         
         });
@@ -47,11 +47,11 @@ let controller = {
 
         let user_info = req.body;
 
-        Profesores.findOne({n_cuenta: user_info.n_cuenta}).exec( (err, profesor) => {
+        profesores.findOne({n_cuenta: user_info.n_cuenta}).exec( (err, profesor) => {
             if(err) return res.status(500).json({status: 500,mensaje: err,});
             if(profesor) return res.status(200).json({status: 200,mensaje: "El numero de cuenta ya existe"});
             
-            let profesores_model = new Profesores();
+            let profesores_model = new profesores();
 
             profesores_model.n_cuenta = user_info.n_cuenta;
             profesores_model.nombre = user_info.nombre;
